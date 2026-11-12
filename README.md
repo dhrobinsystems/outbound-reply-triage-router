@@ -1,6 +1,6 @@
 # Outbound Reply Triage Router
 
-**An n8n workflow that classifies replies to outbound sequences and routes each one to the right action — with deterministic rules first, an optional LLM fallback, a human-review queue for anything uncertain, and a sandbox gate that is closed by default.**
+**An n8n workflow that classifies replies to outbound sequences and routes each one to the right action - with deterministic rules first, an optional LLM fallback, a human-review queue for anything uncertain, and a sandbox gate that is closed by default.**
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 ![n8n](https://img.shields.io/badge/built%20with-n8n-ea4b71)
@@ -32,7 +32,7 @@ This router takes each reply and decides what to do, so humans only see what nee
 
 ### Deliverability & compliance impact (what it does and does not do)
 
-- Faster, consistent handling of opt-outs and no-longer-interested replies means fewer follow-up emails to people who asked you to stop — which is what protects reputation. The deterministic rules are explainable, so you can show *why* a reply was suppressed.
+- Faster, consistent handling of opt-outs and no-longer-interested replies means fewer follow-up emails to people who asked you to stop - which is what protects reputation. The deterministic rules are explainable, so you can show *why* a reply was suppressed.
 - **It does not make you compliant.** Legal duties around opt-outs (e.g., CAN-SPAM, CASL, GDPR) depend on your setup and jurisdiction, and the router only acts on what you configure. You must verify opt-outs are honored in **every** system that can send to that person. See the [disclaimer](#️-disclaimer--liability-limitation).
 
 ### Why rules first, LLM optional
@@ -88,22 +88,22 @@ Each label is scored by the rules that match (noisy-OR of rule weights). The top
 
 Key behaviors (all covered by tests):
 
-- **Explicit opt-outs win** over every other signal ("not interested, please unsubscribe me" → UNSUBSCRIBE) and are honored at the lower `UNSUBSCRIBE_CONFIDENCE_THRESHOLD` (0.60) — suppressing is the safe direction.
+- **Explicit opt-outs win** over every other signal ("not interested, please unsubscribe me" → UNSUBSCRIBE) and are honored at the lower `UNSUBSCRIBE_CONFIDENCE_THRESHOLD` (0.60) - suppressing is the safe direction.
 - **Quoted history is ignored** (`On … wrote:`, `> quoted`, forwarded headers) so your own pitch can't be mistaken for the reply.
 - **"Not interested" is never read as INTERESTED**; "interested, but not right now" is NOT_NOW.
 - **Auto-reply headers** (`Auto-Submitted`, `X-Autoreply`, `Precedence: auto_reply`) mark out-of-office.
-- **Bounces** (mailer-daemon, delivery failures) are ignored — handle them in your sending tool.
+- **Bounces** (mailer-daemon, delivery failures) are ignored - handle them in your sending tool.
 
 | Route | Condition | Sequence | CRM | Slack | Other |
 |---|---|---|---|---|---|
 | `UNSUBSCRIBE` | explicit opt-out, conf ≥ 0.60 | stop | `hs_email_optout=true` (if `HUBSPOT_ENABLED`) | only if `NOTIFY_ON_UNSUBSCRIBE`, **or always if no suppression target is configured** | POST to `SUPPRESSION_WEBHOOK_URL` |
-| `INTERESTED` | conf ≥ 0.80 | stop | HIGH task due in `INTERESTED_TASK_DUE_HOURS` | alert + owner @mention | — |
-| `OUT_OF_OFFICE` | conf ≥ 0.80 | pause until return date | — | — | queue resume at return date + `OOO_REENROLL_DELAY_DAYS` (or `OOO_DEFAULT_PAUSE_DAYS`) |
+| `INTERESTED` | conf ≥ 0.80 | stop | HIGH task due in `INTERESTED_TASK_DUE_HOURS` | alert + owner @mention | - |
+| `OUT_OF_OFFICE` | conf ≥ 0.80 | pause until return date | - | - | queue resume at return date + `OOO_REENROLL_DELAY_DAYS` (or `OOO_DEFAULT_PAUSE_DAYS`) |
 | `WRONG_PERSON` | conf ≥ 0.80 | stop | enrichment task with extracted referral | info (referred email masked) | referral is best-effort: verify |
-| `NOT_NOW` | conf ≥ 0.80 | stop | follow-up task after the requested wait (default `NOT_NOW_FOLLOWUP_DAYS`) | only if `NOTIFY_ON_NOT_NOW` | — |
-| `NOT_INTERESTED` | conf ≥ 0.80 | stop | — | — | not an opt-out |
+| `NOT_NOW` | conf ≥ 0.80 | stop | follow-up task after the requested wait (default `NOT_NOW_FOLLOWUP_DAYS`) | only if `NOTIFY_ON_NOT_NOW` | - |
+| `NOT_INTERESTED` | conf ≥ 0.80 | stop | - | - | not an opt-out |
 | `REVIEW` | conf < 0.80, mixed signals, or no rule matched | hold if `PAUSE_ON_REVIEW` | review task if `REVIEW_CREATE_TASK` | review alert | **human decides** |
-| `BOUNCE` | system sender | — | — | — | ignored |
+| `BOUNCE` | system sender | - | - | - | ignored |
 
 "Sequence" actions run only if `SEQUENCE_PROVIDER` is `apollo` or `webhook` (default `none`). Apollo's default mode is `stop` (halts steps, keeps context); `remove` is permanent.
 
@@ -116,19 +116,19 @@ Key behaviors (all covered by tests):
 | Tuning set | 116 | 100% (rules were tuned on it) | 0 | 0 |
 | **Fresh hold-out** (never tuned on) | 30 | **73%** | **0** | 8 |
 
-On unseen phrasing, roughly a quarter of replies went to the human queue **instead of triggering a wrong action** — that is the designed failure mode. A first hold-out scored 58% and drove a round of rule generalization; those examples were then moved into the tuning set and a fresh hold-out was written. These samples were written by the repo author, so they are a regression guard, **not** a production accuracy claim. Sample your own replies, add them to `sample-data/labeled-replies.json`, and tune. If review volume is too high, the optional LLM fallback is the intended way to reduce it.
+On unseen phrasing, roughly a quarter of replies went to the human queue **instead of triggering a wrong action** - that is the designed failure mode. A first hold-out scored 58% and drove a round of rule generalization; those examples were then moved into the tuning set and a fresh hold-out was written. These samples were written by the repo author, so they are a regression guard, **not** a production accuracy claim. Sample your own replies, add them to `sample-data/labeled-replies.json`, and tune. If review volume is too high, the optional LLM fallback is the intended way to reduce it.
 
 ## 4. Prerequisites, environment variables & credentials
 
 **You need:** n8n (self-hosted recommended; `N8N_BLOCK_ENV_ACCESS_IN_NODE=false` so Code nodes can read env vars), and something that can POST each reply to the webhook (see below). Everything else is optional and off by default. Node.js ≥ 18 is only needed to run the local tests/demo.
 
-**Where replies come from.** This repo does **not** pull replies out of Apollo, HubSpot, or your mailbox. Point a webhook, automation, or another n8n workflow at the *Reply Webhook* with the payload in [`schemas/reply-payload.schema.json`](schemas/reply-payload.schema.json). The workflow also accepts tolerant aliases for Apollo-style and HubSpot-style field names (see `docs/sample-payloads/09-*` and `10-*`), but those adapters are best-effort and **unverified against your account** — if your tool's fields differ, map them to the generic shape.
+**Where replies come from.** This repo does **not** pull replies out of Apollo, HubSpot, or your mailbox. Point a webhook, automation, or another n8n workflow at the *Reply Webhook* with the payload in [`schemas/reply-payload.schema.json`](schemas/reply-payload.schema.json). The workflow also accepts tolerant aliases for Apollo-style and HubSpot-style field names (see `docs/sample-payloads/09-*` and `10-*`), but those adapters are best-effort and **unverified against your account** - if your tool's fields differ, map them to the generic shape.
 
 **Credentials** (map the placeholders on import; no real credentials or IDs are in the JSON):
 
 | Placeholder | n8n credential type | Used by |
 |---|---|---|
-| `YOUR_WEBHOOK_AUTH_CREDENTIAL` | Header Auth (e.g. header `X-Webhook-Secret` + a long random value) | *Reply Webhook* — required |
+| `YOUR_WEBHOOK_AUTH_CREDENTIAL` | Header Auth (e.g. header `X-Webhook-Secret` + a long random value) | *Reply Webhook* - required |
 | `YOUR_HUBSPOT_CREDENTIAL` | HubSpot App Token | contact lookup (read), task creation + opt-out (write). Start read-only; HubSpot error messages name any missing scope |
 | `YOUR_APOLLO_CREDENTIAL` | Header Auth (Apollo API key header) | *Apollo: Stop Sequence*, only if `SEQUENCE_PROVIDER=apollo` |
 | `YOUR_LLM_CREDENTIAL` | Header Auth (e.g. `Authorization: Bearer …`) | *LLM Classify*, only if `ENABLE_LLM_FALLBACK=true` |
@@ -170,7 +170,7 @@ payload                           route           conf   planned actions (not ex
 07-review-ambiguous               REVIEW          0      SLACK
 11-bounce                         BOUNCE          0.95   -
 ```
-(`npm run demo -- --live-plan` shows the fuller plan with Apollo + HubSpot + Slack configured — still nothing is sent.)
+(`npm run demo -- --live-plan` shows the fuller plan with Apollo + HubSpot + Slack configured - still nothing is sent.)
 
 **B. Deploy to n8n in sandbox mode:**
 
@@ -190,7 +190,7 @@ payload                           route           conf   planned actions (not ex
 5. Send every file in `docs/sample-payloads/` (one per branch) and compare with the table above.
 6. Replay a sample of **your own** historical replies in sandbox, review the REVIEW rate, and tune (`docs/CLASSIFICATION.md`).
 
-**C. Going live — only after step 6:** enable one capability at a time (e.g. Slack alerts first, then tasks, then sequence control, then suppression), set `SANDBOX_MODE=false`, activate the workflow, and watch the first executions. Keep a human reviewing the REVIEW queue.
+**C. Going live - only after step 6:** enable one capability at a time (e.g. Slack alerts first, then tasks, then sequence control, then suppression), set `SANDBOX_MODE=false`, activate the workflow, and watch the first executions. Keep a human reviewing the REVIEW queue.
 
 ## Sample payloads
 
@@ -201,7 +201,7 @@ payload                           route           conf   planned actions (not ex
 - **Sandbox first:** the gate sits in front of *every* executor; a test asserts the executors are unreachable except through the gate's "live" output.
 - **Secrets stay out of data:** webhook URLs are read from env by the HTTP nodes only; the config object holds booleans, so URLs never appear in execution data. Workflow JSON is sanitized (no credential IDs, `webhookId`s, instance IDs); CI fails if that regresses.
 - **PII minimization:** Slack shows masked emails and a short excerpt (`SLACK_INCLUDE_EXCERPT=false` removes it); error alerts never include reply content; LLM input is redacted and truncated.
-- **Prompt injection:** reply text is untrusted. Rules only match phrases and cannot be "instructed", but they *can* be matched — a reply that literally says "I'm interested" is treated as interested, and a human sees the resulting task/alert. With the LLM fallback on, the model's answer is validated against an allow-list and capped, and it can never override an explicit opt-out. Residual risk remains; keep LLM-driven actions low-impact.
+- **Prompt injection:** reply text is untrusted. Rules only match phrases and cannot be "instructed", but they *can* be matched - a reply that literally says "I'm interested" is treated as interested, and a human sees the resulting task/alert. With the LLM fallback on, the model's answer is validated against an allow-list and capped, and it can never override an explicit opt-out. Residual risk remains; keep LLM-driven actions low-impact.
 - **Retries:** duplicate webhook deliveries are de-duplicated by `replyId` (live mode). CRM task creation is not auto-retried, to avoid duplicate tasks.
 
 ## Known limitations
@@ -210,7 +210,7 @@ payload                           route           conf   planned actions (not ex
 - Accuracy numbers come from small synthetic samples (see above).
 - State (de-duplication, out-of-office resume queue) lives in n8n *workflow static data*: saved only for active production executions, per instance, not transactional, and not a database.
 - Apollo/HubSpot payload adapters, the Apollo stop-sequence call, and HubSpot task/opt-out calls are written from documentation and **have not been run against live accounts**. Verify in sandbox, then with a single test contact.
-- Sequence *resume* is only automated through your own webhook; for Apollo/HubSpot-only setups the daily check creates a re-enroll reminder (task or Slack).
+- Sequence *resume* is only automated through your own webhook; for Apollo/HubSpot-only setups, the daily check creates a re-enroll reminder (task or Slack).
 - Slack incoming webhooks cannot carry interactive buttons, so the review queue is read-and-act, not click-to-approve.
 - No pagination, batching, or rate-limit shaping beyond n8n's retry settings.
 
@@ -246,7 +246,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). Edit `src/` and `scripts/node-code/`, th
 **Use at your own risk.** The code, workflows, and scripts provided in this repository (`outbound-reply-triage-router`) are for educational and architectural demonstration purposes.
 
 * **No Liability:** The author and dhRobin Systems assume no responsibility or liability for any direct, indirect, incidental, or consequential damages resulting from the use, misuse, or deployment of these scripts and workflows.
-* **Reply Classification, Suppression & Sequence-Control Risks:** Automated reply handling carries inherent risks. Rule-based and (optional) LLM classification will sometimes be wrong: a genuine opt-out can be missed or routed to human review late, a positive reply can be mislabeled, and a lead can be suppressed, paused, or stopped by mistake. When `SANDBOX_MODE=false`, these workflows can **write** to external systems: they can set HubSpot's `hs_email_optout` on a contact (effectively irreversible through the API), create HubSpot tasks, stop or — if you configure `APOLLO_STOP_MODE=remove` — permanently remove contacts from Apollo sequences, call your own suppression and sequence-control webhooks, and post to Slack. Misconfigured thresholds, incorrect property mappings, wrong IDs, bad API calls, duplicate deliveries, or aggressive retries can suppress or pause the wrong people, lose leads, create duplicate tasks, flood Slack channels, exhaust API rate limits, or leave a real opt-out unhonored. Optional LLM fallback sends redacted reply text to the third-party endpoint you configure.
+* **Reply Classification, Suppression & Sequence-Control Risks:** Automated reply handling carries inherent risks. Rule-based and (optional) LLM classification will sometimes be wrong: a genuine opt-out can be missed or routed to human review late, a positive reply can be mislabeled, and a lead can be suppressed, paused, or stopped by mistake. When `SANDBOX_MODE=false`, these workflows can **write** to external systems: they can set HubSpot's `hs_email_optout` on a contact (effectively irreversible through the API), create HubSpot tasks, stop or - if you configure `APOLLO_STOP_MODE=remove` - permanently remove contacts from Apollo sequences, call your own suppression and sequence-control webhooks, and post to Slack. Misconfigured thresholds, incorrect property mappings, wrong IDs, bad API calls, duplicate deliveries, or aggressive retries can suppress or pause the wrong people, lose leads, create duplicate tasks, flood Slack channels, exhaust API rate limits, or leave a real opt-out unhonored. Optional LLM fallback sends redacted reply text to the third-party endpoint you configure.
 * **User Responsibility:** You are solely responsible for compliance with applicable laws, regulations, and contracts, including data-protection and privacy rules (such as GDPR, CCPA, and CASL), anti-spam rules (such as CAN-SPAM), API rate limits, and the terms of service of HubSpot, Apollo, Slack, n8n, your LLM provider, and any other provider you connect. Using this project does not make your outbound program compliant. You are also solely responsible for proper testing (`SANDBOX_MODE=true`) before connecting any scripts to production environments, live CRM data, live sequences, or live notification channels.
 
 Full text: [DISCLAIMER.md](DISCLAIMER.md) · Licensed under the [MIT License](LICENSE).
