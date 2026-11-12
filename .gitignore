@@ -1,0 +1,31 @@
+# secrets / local config
+.env
+.env.*
+!.env.example
+*.local.json
+*.secret
+credentials.json
+
+# local n8n exports and test artifacts (never commit raw exports - they can contain credential IDs and instance data)
+n8n-export*/
+*.export.json
+backup-*.json
+workflows/*.local.json
+executions/
+.n8n/
+
+# node / tooling
+node_modules/
+npm-debug.log*
+coverage/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# logs
+*.log
+logs/

@@ -1,0 +1,17 @@
+{
+  "name": "outbound-reply-triage-router",
+  "version": "1.0.0",
+  "description": "n8n workflow that classifies replies to outbound sequences (Interested, Not Now, Wrong Person, Out of Office, Unsubscribe) with deterministic rules first, optional LLM fallback, human-review queue, and sandbox-by-default CRM / sequence / Slack actions.",
+  "license": "MIT",
+  "author": "dhRobin Systems",
+  "private": true,
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "build": "node scripts/build-workflows.js",
+    "check": "node scripts/build-workflows.js --check",
+    "test": "node tests/run-tests.js",
+    "eval": "node scripts/eval.js",
+    "demo": "node scripts/demo.js"
+  },
+  "keywords": ["n8n", "outbound", "cold-email", "reply-classification", "sequences", "apollo", "hubspot", "slack", "revops", "deliverability", "unsubscribe", "can-spam", "casl"]
+}
