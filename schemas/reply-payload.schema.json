@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "reply-payload.schema.json",
+  "title": "Reply Triage Router - webhook payload",
+  "description": "Generic payload accepted by the Reply Webhook. The workflow also accepts tolerant aliases (see src/normalize.js), but sending this shape is the most reliable. Never send credentials in the payload.",
+  "type": "object",
+  "required": ["from", "body"],
+  "properties": {
+    "replyId": { "type": "string", "description": "Provider message/reply ID. Used for de-duplication. If omitted, a stable hash is generated." },
+    "source": { "type": "string", "enum": ["generic", "apollo", "hubspot"], "default": "generic" },
+    "receivedAt": { "type": "string", "format": "date-time", "description": "When the reply arrived. Used to resolve dates like 'back on Monday'. Defaults to now." },
+    "from": {
+      "type": "object",
+      "required": ["email"],
+      "properties": { "email": { "type": "string", "format": "email" }, "name": { "type": "string" } }
+    },
+    "subject": { "type": "string" },
+    "body": { "type": "string", "description": "Plain-text reply. Either body or html is required." },
+    "html": { "type": "string", "description": "HTML reply, used only if body is empty." },
+    "headers": {
+      "type": "object",
+      "description": "Optional raw email headers. Auto-Submitted / X-Autoreply / X-Autorespond / Precedence: auto_reply mark an out-of-office reply.",
+      "additionalProperties": { "type": "string" }
+    },
+    "contact": {
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "format": "email", "description": "Your contact's email if different from the sender." },
+        "hubspotContactId": { "type": "string", "pattern": "^[0-9]+$" },
+        "apolloContactId": { "type": "string" }
+      }
+    },
+    "sequence": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "apolloSequenceId": { "type": "string" }
+      }
+    }
+  }
+}
