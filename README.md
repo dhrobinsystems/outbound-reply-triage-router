@@ -41,6 +41,8 @@ Regex/rule classification is predictable, free, offline, auditable, and has no d
 
 ## 2. Architecture
 
+![Workflow Overview](assets/reply-triage-workflow.png)
+
 ```mermaid
 flowchart TD
   IN["Reply webhook (Header Auth)"] --> NORM["Validate + normalize payload<br/>de-duplicate by replyId"]
