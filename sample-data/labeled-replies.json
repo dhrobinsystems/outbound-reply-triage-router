@@ -1,0 +1,704 @@
+{
+  "_note": "Synthetic, hand-written examples used while tuning rules (tuning set, 116 examples). The first 76 were written before any tuning (two labels revised after the first run: 'interested but not right now' is NOT_NOW; a bare 'I forwarded this to X' is ambiguous so it routes to REVIEW). The last 38 were an unseen hold-out whose misses drove a second round of rule changes, so they are tuning data too. See holdout-replies.json for a fresh hold-out written after that round. Two opt-out phrasings that the fresh hold-out missed ('remove this address', 'opt me out') were fixed for compliance reasons and moved here.",
+  "replies": [
+    {
+      "id": "dev-001",
+      "subject": "Re: quick question",
+      "body": "Please remove me from your list.",
+      "expected": "UNSUBSCRIBE"
+    },
+    {
+      "id": "dev-002",
+      "subject": "Re: quick question",
+      "body": "unsubscribe",
+      "expected": "UNSUBSCRIBE"
+    },
+    {
+      "id": "dev-003",
+      "subject": "Re: quick question",
+      "body": "Stop emailing me.",
+      "expected": "UNSUBSCRIBE"
+    },
+    {
+      "id": "dev-004",
+      "subject": "Re: quick question",
+      "body": "Take me off your mailing list immediately. This is the third time I've asked.",
+      "expected": "UNSUBSCRIBE"
+    },
+    {
+      "id": "dev-005",
+      "subject": "Re: quick question",
+      "body": "Do not contact me again.",
+      "expected": "UNSUBSCRIBE"
+    },
+    {
+      "id": "dev-006",
+      "subject": "Re: quick question",
+      "body": "I did not opt in to this. Under GDPR please delete all my personal data.",
+      "expected": "UNSUBSCRIBE"
+    },
+    {
+      "id": "dev-007",
+      "subject": "Re: quick question",
+      "body": "STOP",
+      "expected": "UNSUBSCRIBE"
+    },
+    {
+      "id": "dev-008",
+      "subject": "Re: quick question",
+      "body": "Not interested. Please unsubscribe me.",
+      "expected": "UNSUBSCRIBE"
+    },
+    {
+      "id": "dev-009",
+      "subject": "Re: quick question",
+      "body": "Remove my email from your database.",
+      "expected": "UNSUBSCRIBE"
+    },
+    {
+      "id": "dev-010",
+      "subject": "Re: quick question",
+      "body": "This is spam. Stop sending me these messages.",
+      "expected": "UNSUBSCRIBE"
+    },
+    {
+      "id": "dev-011",
+      "subject": "Re: quick question",
+      "body": "Please don't email me anymore.",
+      "expected": "UNSUBSCRIBE"
+    },
+    {
+      "id": "dev-012",
+      "subject": "Re: quick question",
+      "body": "no more emails please",
+      "expected": "UNSUBSCRIBE"
+    },
+    {
+      "id": "dev-013",
+      "subject": "Re: quick question",
+      "body": "Yes, I'd be interested. Can you send over some more information?",
+      "expected": "INTERESTED"
+    },
+    {
+      "id": "dev-014",
+      "subject": "Re: quick question",
+      "body": "Sounds interesting - do you have time for a quick call Thursday?",
+      "expected": "INTERESTED"
+    },
+    {
+      "id": "dev-015",
+      "subject": "Re: quick question",
+      "body": "Let's chat. Here's my calendar: calendly.com/example",
+      "expected": "INTERESTED"
+    },
+    {
+      "id": "dev-016",
+      "subject": "Re: quick question",
+      "body": "Can you send pricing?",
+      "expected": "INTERESTED"
+    },
+    {
+      "id": "dev-017",
+      "subject": "Re: quick question",
+      "body": "Tell me more about how this works.",
+      "expected": "INTERESTED"
+    },
+    {
+      "id": "dev-018",
+      "subject": "Re: quick question",
+      "body": "Happy to hop on a call next week. What times work for you?",
+      "expected": "INTERESTED"
+    },
+    {
+      "id": "dev-019",
+      "subject": "Re: quick question",
+      "body": "This is actually good timing - we're evaluating vendors right now.",
+      "expected": "INTERESTED"
+    },
+    {
+      "id": "dev-020",
+      "subject": "Re: quick question",
+      "body": "Yes please, send the deck.",
+      "expected": "INTERESTED"
+    },
+    {
+      "id": "dev-021",
+      "subject": "Re: quick question",
+      "body": "I'd love to learn more. Are you free Tuesday afternoon?",
+      "expected": "INTERESTED"
+    },
+    {
+      "id": "dev-022",
+      "subject": "Re: quick question",
+      "body": "Interested! Let's set up a demo.",
+      "expected": "INTERESTED"
+    },
+    {
+      "id": "dev-023",
+      "subject": "Re: quick question",
+      "body": "Looks great, can we schedule 30 minutes?",
+      "expected": "INTERESTED"
+    },
+    {
+      "id": "dev-024",
+      "subject": "Re: quick question",
+      "body": "Thanks for reaching out. We're exploring options in this space - send me a case study.",
+      "expected": "INTERESTED"
+    },
+    {
+      "id": "dev-025",
+      "subject": "Re: quick question",
+      "body": "Sure, let's talk.",
+      "expected": "INTERESTED"
+    },
+    {
+      "id": "dev-026",
+      "subject": "Re: quick question",
+      "body": "Please do follow up with a proposal.",
+      "expected": "INTERESTED"
+    },
+    {
+      "id": "dev-027",
+      "subject": "Re: quick question",
+      "body": "Not right now, we're heads-down on a launch. Check back next quarter.",
+      "expected": "NOT_NOW"
+    },
+    {
+      "id": "dev-028",
+      "subject": "Re: quick question",
+      "body": "Bad timing - budget freeze until Q1. Reach out again in January.",
+      "expected": "NOT_NOW"
+    },
+    {
+      "id": "dev-029",
+      "subject": "Re: quick question",
+      "body": "Interesting, but not a priority at the moment. Can you circle back in 3 months?",
+      "expected": "NOT_NOW"
+    },
+    {
+      "id": "dev-030",
+      "subject": "Re: quick question",
+      "body": "We just signed with another vendor, maybe revisit next year.",
+      "expected": "NOT_NOW"
+    },
+    {
+      "id": "dev-031",
+      "subject": "Re: quick question",
+      "body": "Not yet - we are planning for next year's budget. Ping me after the new year.",
+      "expected": "NOT_NOW"
+    },
+    {
+      "id": "dev-032",
+      "subject": "Re: quick question",
+      "body": "Swamped this month. Try me again in a few weeks.",
+      "expected": "NOT_NOW"
+    },
+    {
+      "id": "dev-033",
+      "subject": "Re: quick question",
+      "body": "Timing isn't great. Let's talk later this year.",
+      "expected": "NOT_NOW"
+    },
+    {
+      "id": "dev-034",
+      "subject": "Re: quick question",
+      "body": "We're in the middle of a migration; follow up in Q3.",
+      "expected": "NOT_NOW"
+    },
+    {
+      "id": "dev-035",
+      "subject": "Re: quick question",
+      "body": "Not at this time. Maybe down the road.",
+      "expected": "NOT_NOW"
+    },
+    {
+      "id": "dev-036",
+      "subject": "Re: quick question",
+      "body": "Appreciate it but not now, reconnect in six months.",
+      "expected": "NOT_NOW"
+    },
+    {
+      "id": "dev-037",
+      "subject": "Re: quick question",
+      "body": "Not interested, thanks.",
+      "expected": "NOT_INTERESTED"
+    },
+    {
+      "id": "dev-038",
+      "subject": "Re: quick question",
+      "body": "No thank you.",
+      "expected": "NOT_INTERESTED"
+    },
+    {
+      "id": "dev-039",
+      "subject": "Re: quick question",
+      "body": "We're all set, thanks.",
+      "expected": "NOT_INTERESTED"
+    },
+    {
+      "id": "dev-040",
+      "subject": "Re: quick question",
+      "body": "We already use a competitor and are happy with them.",
+      "expected": "NOT_INTERESTED"
+    },
+    {
+      "id": "dev-041",
+      "subject": "Re: quick question",
+      "body": "This isn't relevant to us.",
+      "expected": "NOT_INTERESTED"
+    },
+    {
+      "id": "dev-042",
+      "subject": "Re: quick question",
+      "body": "We'll pass.",
+      "expected": "NOT_INTERESTED"
+    },
+    {
+      "id": "dev-043",
+      "subject": "Re: quick question",
+      "body": "Not for us.",
+      "expected": "NOT_INTERESTED"
+    },
+    {
+      "id": "dev-044",
+      "subject": "Re: quick question",
+      "body": "No need for this at our company.",
+      "expected": "NOT_INTERESTED"
+    },
+    {
+      "id": "dev-045",
+      "subject": "Re: quick question",
+      "body": "Not looking for anything like this.",
+      "expected": "NOT_INTERESTED"
+    },
+    {
+      "id": "dev-046",
+      "subject": "Re: quick question",
+      "body": "I'm not interested in this.",
+      "expected": "NOT_INTERESTED"
+    },
+    {
+      "id": "dev-047",
+      "subject": "Out of Office",
+      "body": "I am out of the office until June 3 with limited access to email. For urgent matters contact reception.",
+      "expected": "OUT_OF_OFFICE"
+    },
+    {
+      "id": "dev-048",
+      "subject": "Re: quick question",
+      "body": "Thank you for your email. I'm on vacation and will return on 11/24/2026.",
+      "expected": "OUT_OF_OFFICE"
+    },
+    {
+      "id": "dev-049",
+      "subject": "Automatic reply: quick question",
+      "body": "I am currently on leave, back Monday.",
+      "expected": "OUT_OF_OFFICE"
+    },
+    {
+      "id": "dev-050",
+      "subject": "Re: quick question",
+      "body": "I'll be out of the office from Nov 18 to Nov 22, returning on November 23rd.",
+      "expected": "OUT_OF_OFFICE"
+    },
+    {
+      "id": "dev-051",
+      "subject": "Re: quick question",
+      "body": "Hello, I am away from my desk and will respond when I return on 2026-12-02.",
+      "expected": "OUT_OF_OFFICE"
+    },
+    {
+      "id": "dev-052",
+      "subject": "Re: quick question",
+      "body": "On parental leave until January 15, 2027. For urgent matters contact the main line.",
+      "expected": "OUT_OF_OFFICE"
+    },
+    {
+      "id": "dev-053",
+      "subject": "Re: quick question",
+      "body": "This is an automated response. I am travelling and will have limited email access until the 20th.",
+      "expected": "OUT_OF_OFFICE"
+    },
+    {
+      "id": "dev-054",
+      "subject": "Re: quick question",
+      "body": "I'm out of office on a business trip, returning Thursday.",
+      "expected": "OUT_OF_OFFICE"
+    },
+    {
+      "id": "dev-055",
+      "subject": "Re: quick question",
+      "body": "Currently out of the office. I will reply to your message when I am back on 3 December.",
+      "expected": "OUT_OF_OFFICE"
+    },
+    {
+      "id": "dev-056",
+      "subject": "Auto-reply: quick question",
+      "body": "Annual leave until 5 January 2027.",
+      "expected": "OUT_OF_OFFICE"
+    },
+    {
+      "id": "dev-057",
+      "subject": "Re: quick question",
+      "body": "I'm not the right person for this. Please contact Dana Lee at dana.lee@acme.example, our VP of Operations.",
+      "expected": "WRONG_PERSON"
+    },
+    {
+      "id": "dev-058",
+      "subject": "Re: quick question",
+      "body": "Wrong person, sorry. Try reaching out to Marcus Reyes.",
+      "expected": "WRONG_PERSON"
+    },
+    {
+      "id": "dev-059",
+      "subject": "Re: quick question",
+      "body": "John no longer works here. Please contact support@acme.example.",
+      "expected": "WRONG_PERSON"
+    },
+    {
+      "id": "dev-060",
+      "subject": "Re: quick question",
+      "body": "I left the company in August.",
+      "expected": "WRONG_PERSON"
+    },
+    {
+      "id": "dev-061",
+      "subject": "Re: quick question",
+      "body": "This isn't in my area. You should speak with Priya Nair, Head of Procurement.",
+      "expected": "WRONG_PERSON"
+    },
+    {
+      "id": "dev-062",
+      "subject": "Re: quick question",
+      "body": "I've forwarded this to our CTO, Alex Kim (alex.kim@acme.example).",
+      "expected": "REVIEW"
+    },
+    {
+      "id": "dev-063",
+      "subject": "Re: quick question",
+      "body": "Not my department - please email our IT director at it-director@acme.example.",
+      "expected": "WRONG_PERSON"
+    },
+    {
+      "id": "dev-064",
+      "subject": "Re: quick question",
+      "body": "You have the wrong contact; I handle HR, not marketing.",
+      "expected": "WRONG_PERSON"
+    },
+    {
+      "id": "dev-065",
+      "subject": "Re: quick question",
+      "body": "I'm not responsible for this. Please talk to Sam Ortiz.",
+      "expected": "WRONG_PERSON"
+    },
+    {
+      "id": "dev-066",
+      "subject": "Re: quick question",
+      "body": "She has left the company. Best to contact Chris Park, Director of Sales.",
+      "expected": "WRONG_PERSON"
+    },
+    {
+      "id": "dev-067",
+      "subject": "Re: quick question",
+      "body": "Thanks",
+      "expected": "REVIEW"
+    },
+    {
+      "id": "dev-068",
+      "subject": "Re: quick question",
+      "body": "Can you tell me who you are?",
+      "expected": "REVIEW"
+    },
+    {
+      "id": "dev-069",
+      "subject": "Re: quick question",
+      "body": "Sounds interesting, but not right now - circle back in Q1.",
+      "expected": "NOT_NOW"
+    },
+    {
+      "id": "dev-070",
+      "subject": "Re: quick question",
+      "body": "Who gave you my email address?",
+      "expected": "REVIEW"
+    },
+    {
+      "id": "dev-071",
+      "subject": "Re: quick question",
+      "body": "Interesting. We'll see.",
+      "expected": "REVIEW"
+    },
+    {
+      "id": "dev-072",
+      "subject": "Re: quick question",
+      "body": "What company is this?",
+      "expected": "REVIEW"
+    },
+    {
+      "id": "dev-073",
+      "subject": "Re: quick question",
+      "body": "Send me details but I'm not the decision maker.",
+      "expected": "REVIEW"
+    },
+    {
+      "id": "dev-074",
+      "subject": "Re: quick question",
+      "body": "Ok.",
+      "expected": "REVIEW"
+    },
+    {
+      "id": "dev-075",
+      "subject": "Re: quick question",
+      "body": "👍",
+      "expected": "REVIEW"
+    },
+    {
+      "id": "dev-076",
+      "subject": "Re: quick question",
+      "body": "Is this a joke?",
+      "expected": "REVIEW"
+    },
+    {
+      "id": "dev-077",
+      "subject": "Re: quick question",
+      "body": "Hi - I'd appreciate it if you could take my address off your outreach list.",
+      "expected": "UNSUBSCRIBE"
+    },
+    {
+      "id": "dev-078",
+      "subject": "Re: quick question",
+      "body": "Quit contacting me.",
+      "expected": "UNSUBSCRIBE"
+    },
+    {
+      "id": "dev-079",
+      "subject": "Re: quick question",
+      "body": "Please stop.",
+      "expected": "UNSUBSCRIBE"
+    },
+    {
+      "id": "dev-080",
+      "subject": "Re: quick question",
+      "body": "I never signed up for this. Delete me from your CRM and don't write again.",
+      "expected": "UNSUBSCRIBE"
+    },
+    {
+      "id": "dev-081",
+      "subject": "Re: quick question",
+      "body": "Unsubscribe me from all future messages.",
+      "expected": "UNSUBSCRIBE"
+    },
+    {
+      "id": "dev-082",
+      "subject": "Re: quick question",
+      "body": "Per CAN-SPAM, I am requesting removal from your list.",
+      "expected": "UNSUBSCRIBE"
+    },
+    {
+      "id": "dev-083",
+      "subject": "Re: quick question",
+      "body": "Hey, this caught my eye. Could you share a bit more on how it works and what it costs?",
+      "expected": "INTERESTED"
+    },
+    {
+      "id": "dev-084",
+      "subject": "Re: quick question",
+      "body": "Great timing! We were just discussing this. Want to do a call Wednesday at 2pm?",
+      "expected": "INTERESTED"
+    },
+    {
+      "id": "dev-085",
+      "subject": "Re: quick question",
+      "body": "Yes - please send over the pricing sheet and a few customer references.",
+      "expected": "INTERESTED"
+    },
+    {
+      "id": "dev-086",
+      "subject": "Re: quick question",
+      "body": "I'm the right person. Let's schedule a demo.",
+      "expected": "INTERESTED"
+    },
+    {
+      "id": "dev-087",
+      "subject": "Re: quick question",
+      "body": "Can you do Friday at 10am for a quick intro call?",
+      "expected": "INTERESTED"
+    },
+    {
+      "id": "dev-088",
+      "subject": "Re: quick question",
+      "body": "We've been looking for something like this. Please send details.",
+      "expected": "INTERESTED"
+    },
+    {
+      "id": "dev-089",
+      "subject": "Re: quick question",
+      "body": "Interested in a trial - what does onboarding look like?",
+      "expected": "INTERESTED"
+    },
+    {
+      "id": "dev-090",
+      "subject": "Re: quick question",
+      "body": "Not the right moment for us. Maybe check in after the summer?",
+      "expected": "NOT_NOW"
+    },
+    {
+      "id": "dev-091",
+      "subject": "Re: quick question",
+      "body": "We're locked in with our current provider through next March. Reach out then.",
+      "expected": "NOT_NOW"
+    },
+    {
+      "id": "dev-092",
+      "subject": "Re: quick question",
+      "body": "Our budget for this is exhausted until January.",
+      "expected": "NOT_NOW"
+    },
+    {
+      "id": "dev-093",
+      "subject": "Re: quick question",
+      "body": "Interested in principle, but we can't look at anything until Q2. Follow up in April?",
+      "expected": "NOT_NOW"
+    },
+    {
+      "id": "dev-094",
+      "subject": "Re: quick question",
+      "body": "Not now, thanks - ask me again in a couple of months.",
+      "expected": "NOT_NOW"
+    },
+    {
+      "id": "dev-095",
+      "subject": "Re: quick question",
+      "body": "Thanks but we have no interest.",
+      "expected": "NOT_INTERESTED"
+    },
+    {
+      "id": "dev-096",
+      "subject": "Re: quick question",
+      "body": "Please don't follow up, this isn't something we'd ever buy.",
+      "expected": "NOT_INTERESTED"
+    },
+    {
+      "id": "dev-097",
+      "subject": "Re: quick question",
+      "body": "We've got this covered in-house.",
+      "expected": "NOT_INTERESTED"
+    },
+    {
+      "id": "dev-098",
+      "subject": "Re: quick question",
+      "body": "Nope.",
+      "expected": "NOT_INTERESTED"
+    },
+    {
+      "id": "dev-099",
+      "subject": "Re: quick question",
+      "body": "Not something we're pursuing.",
+      "expected": "NOT_INTERESTED"
+    },
+    {
+      "id": "dev-100",
+      "subject": "Re: quick question",
+      "body": "Hi, I'm away until the 14th of December and will have no access to email. For anything urgent, ring the office.",
+      "expected": "OUT_OF_OFFICE"
+    },
+    {
+      "id": "dev-101",
+      "subject": "Automatic reply: Following up",
+      "body": "Thanks for your message. I'm out until Monday, 16 November.",
+      "expected": "OUT_OF_OFFICE"
+    },
+    {
+      "id": "dev-102",
+      "subject": "Re: quick question",
+      "body": "Thank you for contacting me. I am currently attending a conference and will respond to emails on my return, on 2026-11-30.",
+      "expected": "OUT_OF_OFFICE"
+    },
+    {
+      "id": "dev-103",
+      "subject": "Out of office",
+      "body": "Nov 12-20. I'll get back to you when I return.",
+      "expected": "OUT_OF_OFFICE"
+    },
+    {
+      "id": "dev-104",
+      "subject": "Re: quick question",
+      "body": "I will be responding to your message soon.",
+      "expected": "OUT_OF_OFFICE",
+      "headers": {
+        "Auto-Submitted": "auto-replied"
+      }
+    },
+    {
+      "id": "dev-105",
+      "subject": "Re: quick question",
+      "body": "Hi, you've reached the wrong person; I'm in finance. Our head of marketing is Taylor Brooks (taylor.brooks@acme.example).",
+      "expected": "WRONG_PERSON"
+    },
+    {
+      "id": "dev-106",
+      "subject": "Re: quick question",
+      "body": "I no longer handle vendor decisions - that is now Jordan Ellis' team.",
+      "expected": "WRONG_PERSON"
+    },
+    {
+      "id": "dev-107",
+      "subject": "Re: quick question",
+      "body": "This should go to our procurement team.",
+      "expected": "WRONG_PERSON"
+    },
+    {
+      "id": "dev-108",
+      "subject": "Re: quick question",
+      "body": "Sorry, wrong email address. Nobody by that name here.",
+      "expected": "WRONG_PERSON"
+    },
+    {
+      "id": "dev-109",
+      "subject": "Re: quick question",
+      "body": "Please advise.",
+      "expected": "REVIEW"
+    },
+    {
+      "id": "dev-110",
+      "subject": "Re: quick question",
+      "body": "Who is this?",
+      "expected": "REVIEW"
+    },
+    {
+      "id": "dev-111",
+      "subject": "Re: quick question",
+      "body": "Can you resend that? The link was broken.",
+      "expected": "REVIEW"
+    },
+    {
+      "id": "dev-112",
+      "subject": "Re: quick question",
+      "body": "We're a nonprofit, does that matter?",
+      "expected": "REVIEW"
+    },
+    {
+      "id": "dev-113",
+      "subject": "Re: quick question",
+      "body": "Wait, are you affiliated with Acme Corp?",
+      "expected": "REVIEW"
+    },
+    {
+      "id": "dev-114",
+      "subject": "Re: quick question",
+      "body": "Remind me what this is about?",
+      "expected": "REVIEW"
+    },
+    {
+      "id": "dev-115",
+      "subject": "Re: quick question",
+      "body": "Kindly remove this address from your distribution list.",
+      "expected": "UNSUBSCRIBE"
+    },
+    {
+      "id": "dev-116",
+      "subject": "Re: quick question",
+      "body": "Opt me out please.",
+      "expected": "UNSUBSCRIBE"
+    }
+  ]
+}

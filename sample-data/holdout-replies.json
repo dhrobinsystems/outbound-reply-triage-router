@@ -1,0 +1,188 @@
+{
+  "_note": "Fresh hand-written examples created AFTER the final rule round, never used for tuning. Written by the repo author, so phrasing is still biased toward how the author writes. Some examples are deliberately hard.",
+  "replies": [
+    {
+      "id": "hold-001",
+      "subject": "Re: quick question",
+      "body": "I've asked before - stop messaging me.",
+      "expected": "UNSUBSCRIBE"
+    },
+    {
+      "id": "hold-002",
+      "subject": "Re: quick question",
+      "body": "Not interested and please do not email this address again.",
+      "expected": "UNSUBSCRIBE"
+    },
+    {
+      "id": "hold-003",
+      "subject": "Re: quick question",
+      "body": "Take me off.",
+      "expected": "UNSUBSCRIBE"
+    },
+    {
+      "id": "hold-004",
+      "subject": "Re: quick question",
+      "body": "Thanks for the note. We're actually in the market for this. When can we talk?",
+      "expected": "INTERESTED"
+    },
+    {
+      "id": "hold-005",
+      "subject": "Re: quick question",
+      "body": "Please send a quick overview and a few time slots for a call.",
+      "expected": "INTERESTED"
+    },
+    {
+      "id": "hold-006",
+      "subject": "Re: quick question",
+      "body": "I'd like to see a demo. What's your availability next week?",
+      "expected": "INTERESTED"
+    },
+    {
+      "id": "hold-007",
+      "subject": "Re: quick question",
+      "body": "This could be useful for our team - let's connect.",
+      "expected": "INTERESTED"
+    },
+    {
+      "id": "hold-008",
+      "subject": "Re: quick question",
+      "body": "Yes, send me details and pricing.",
+      "expected": "INTERESTED"
+    },
+    {
+      "id": "hold-009",
+      "subject": "Re: quick question",
+      "body": "Looks relevant. Let's schedule something for next week.",
+      "expected": "INTERESTED"
+    },
+    {
+      "id": "hold-010",
+      "subject": "Re: quick question",
+      "body": "Our team is at capacity this quarter. Let's revisit in the spring.",
+      "expected": "NOT_NOW"
+    },
+    {
+      "id": "hold-011",
+      "subject": "Re: quick question",
+      "body": "We're mid-rollout of another tool. Can you follow up in two months?",
+      "expected": "NOT_NOW"
+    },
+    {
+      "id": "hold-012",
+      "subject": "Re: quick question",
+      "body": "Not a good time - everything is on hold until after the holidays.",
+      "expected": "NOT_NOW"
+    },
+    {
+      "id": "hold-013",
+      "subject": "Re: quick question",
+      "body": "Interesting, but we can't evaluate anything before next fiscal year.",
+      "expected": "NOT_NOW"
+    },
+    {
+      "id": "hold-014",
+      "subject": "Re: quick question",
+      "body": "We are not in need of this service.",
+      "expected": "NOT_INTERESTED"
+    },
+    {
+      "id": "hold-015",
+      "subject": "Re: quick question",
+      "body": "No, we're fine. Thank you.",
+      "expected": "NOT_INTERESTED"
+    },
+    {
+      "id": "hold-016",
+      "subject": "Re: quick question",
+      "body": "Pass. We're happy with our current setup.",
+      "expected": "NOT_INTERESTED"
+    },
+    {
+      "id": "hold-017",
+      "subject": "Re: quick question",
+      "body": "Not relevant for our business.",
+      "expected": "NOT_INTERESTED"
+    },
+    {
+      "id": "hold-018",
+      "subject": "Automatic reply",
+      "body": "I am out of the office on annual leave and will return on 28 November. If urgent, please contact my colleague.",
+      "expected": "OUT_OF_OFFICE"
+    },
+    {
+      "id": "hold-019",
+      "subject": "Re: quick question",
+      "body": "Thank you for your message. I am away from the office until 2026-12-07 and will have limited access to email.",
+      "expected": "OUT_OF_OFFICE"
+    },
+    {
+      "id": "hold-020",
+      "subject": "Out of Office",
+      "body": "On holiday - back at my desk Monday 23 November.",
+      "expected": "OUT_OF_OFFICE"
+    },
+    {
+      "id": "hold-021",
+      "subject": "Re: quick question",
+      "body": "Your email has been received. This mailbox is monitored intermittently while I am travelling.",
+      "expected": "OUT_OF_OFFICE",
+      "headers": {
+        "X-Autoreply": "yes"
+      }
+    },
+    {
+      "id": "hold-022",
+      "subject": "Re: quick question",
+      "body": "I don't work in that area anymore. Try Elena Rossi, our Director of Operations, at elena.rossi@acme.example.",
+      "expected": "WRONG_PERSON"
+    },
+    {
+      "id": "hold-023",
+      "subject": "Re: quick question",
+      "body": "Wrong guy, I'm afraid - you want someone in our sales team.",
+      "expected": "WRONG_PERSON"
+    },
+    {
+      "id": "hold-024",
+      "subject": "Re: quick question",
+      "body": "I'm not the right contact for this.",
+      "expected": "WRONG_PERSON"
+    },
+    {
+      "id": "hold-025",
+      "subject": "Re: quick question",
+      "body": "That would be handled by our IT department, not me.",
+      "expected": "WRONG_PERSON"
+    },
+    {
+      "id": "hold-026",
+      "subject": "Re: quick question",
+      "body": "Interesting. How did you find us?",
+      "expected": "REVIEW"
+    },
+    {
+      "id": "hold-027",
+      "subject": "Re: quick question",
+      "body": "Can you call my assistant?",
+      "expected": "REVIEW"
+    },
+    {
+      "id": "hold-028",
+      "subject": "Re: quick question",
+      "body": "We might have something for you. Not sure yet.",
+      "expected": "REVIEW"
+    },
+    {
+      "id": "hold-029",
+      "subject": "Re: quick question",
+      "body": "Received.",
+      "expected": "REVIEW"
+    },
+    {
+      "id": "hold-030",
+      "subject": "Re: quick question",
+      "body": "Is there a free version?",
+      "expected": "REVIEW"
+    }
+  ]
+}
