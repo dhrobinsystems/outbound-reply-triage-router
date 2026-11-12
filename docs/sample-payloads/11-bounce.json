@@ -1,0 +1,20 @@
+{
+  "source": "generic",
+  "receivedAt": "2026-11-10T14:00:00.000Z",
+  "from": {
+    "email": "mailer-daemon@example.com",
+    "name": "Mail Delivery Subsystem"
+  },
+  "subject": "Delivery Status Notification (Failure)",
+  "contact": {
+    "hubspotContactId": "100001",
+    "apolloContactId": "000000000000000000000001"
+  },
+  "sequence": {
+    "id": "seq-demo-1",
+    "name": "Demo outbound sequence",
+    "apolloSequenceId": "000000000000000000000002"
+  },
+  "replyId": "sample-bounce-001",
+  "body": "Your message could not be delivered."
+}

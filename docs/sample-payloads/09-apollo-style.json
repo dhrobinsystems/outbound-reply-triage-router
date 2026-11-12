@@ -1,0 +1,10 @@
+{
+  "source": "apollo",
+  "replyId": "sample-apollo-001",
+  "receivedAt": "2026-11-10T14:00:00.000Z",
+  "email": "jane.doe@example.com",
+  "contact_id": "000000000000000000000001",
+  "emailer_campaign_id": "000000000000000000000002",
+  "subject": "Re: quick question",
+  "reply_text": "Sounds good - let's set up a demo next week. What times work for you?"
+}

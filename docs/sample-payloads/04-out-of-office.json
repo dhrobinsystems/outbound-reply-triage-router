@@ -1,0 +1,23 @@
+{
+  "source": "generic",
+  "receivedAt": "2026-11-10T14:00:00.000Z",
+  "from": {
+    "email": "jane.doe@example.com",
+    "name": "Jane Doe"
+  },
+  "subject": "Automatic reply: quick question about your outbound",
+  "contact": {
+    "hubspotContactId": "100001",
+    "apolloContactId": "000000000000000000000001"
+  },
+  "sequence": {
+    "id": "seq-demo-1",
+    "name": "Demo outbound sequence",
+    "apolloSequenceId": "000000000000000000000002"
+  },
+  "replyId": "sample-ooo-001",
+  "headers": {
+    "Auto-Submitted": "auto-replied"
+  },
+  "body": "Thank you for your email. I am out of the office until November 24, 2026 with limited access to email."
+}

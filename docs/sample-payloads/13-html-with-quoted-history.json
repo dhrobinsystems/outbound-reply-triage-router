@@ -1,0 +1,21 @@
+{
+  "source": "generic",
+  "receivedAt": "2026-11-10T14:00:00.000Z",
+  "from": {
+    "email": "jane.doe@example.com",
+    "name": "Jane Doe"
+  },
+  "subject": "Re: quick question about your outbound",
+  "contact": {
+    "hubspotContactId": "100001",
+    "apolloContactId": "000000000000000000000001"
+  },
+  "sequence": {
+    "id": "seq-demo-1",
+    "name": "Demo outbound sequence",
+    "apolloSequenceId": "000000000000000000000002"
+  },
+  "replyId": "sample-html-001",
+  "body": "",
+  "html": "<div>Not interested, thank you.</div><br><div>On Mon, Nov 9, 2026 at 9:00 AM Sales Rep &lt;rep@example.org&gt; wrote:</div><blockquote>Hi Jane, we help teams book more meetings. Interested in learning more?</blockquote>"
+}

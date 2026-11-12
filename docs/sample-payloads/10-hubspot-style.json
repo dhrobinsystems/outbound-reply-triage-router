@@ -1,0 +1,9 @@
+{
+  "source": "hubspot",
+  "replyId": "sample-hubspot-001",
+  "receivedAt": "2026-11-10T14:00:00.000Z",
+  "email": "jane.doe@example.com",
+  "contactId": "100001",
+  "subject": "Re: quick question",
+  "text": "Can you send pricing? We are evaluating options this quarter."
+}
